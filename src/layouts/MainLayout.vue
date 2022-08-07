@@ -11,9 +11,9 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title> QL99 </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -35,8 +35,8 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
+<script setup>
+import { ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 
 const linksList = [
@@ -84,23 +84,10 @@ const linksList = [
   },
 ];
 
-export default defineComponent({
-  name: "MainLayout",
+const essentialLinks = ref(linksList);
+const leftDrawerOpen = ref(false);
 
-  components: {
-    EssentialLink,
-  },
-
-  setup() {
-    const leftDrawerOpen = ref(false);
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
-});
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
 </script>
