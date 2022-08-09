@@ -1,5 +1,5 @@
 <template>
-  <q-header class="bg-yellow-400 text-black md:p-4">
+  <q-header class="bg-yellow-400 text-black py-3 md:p-4">
     <q-toolbar class="md:px-0">
       <q-btn
         class="md:hidden"
@@ -10,8 +10,10 @@
         aria-label="Menu"
         @click="toggleLeftDrawer"
       />
-      <q-toolbar-title shrink class="lg:px-6 md:text-2xl">
-        QL99
+      <q-toolbar-title shrink>
+        <a href="/">
+          <img src="logo.png" class="w-14 md:w-20" />
+        </a>
       </q-toolbar-title>
 
       <q-button-group class="hidden md:flex mr-auto">

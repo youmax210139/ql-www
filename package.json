@@ -1,8 +1,8 @@
 {
   "name": "ql-www",
-  "version": "0.0.1",
-  "description": "QL PWA & Moboile App",
-  "productName": "QL99 App",
+  "version": "0.0.3",
+  "description": "Best online album shopping mall",
+  "productName": "QL99",
   "author": "charlie <youmax210139@gmail.com>",
   "private": true,
   "scripts": {
@@ -11,7 +11,8 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "build:pwa": "quasar build -m pwa"
+    "build:pwa": "quasar build -m pwa",
+    "icons": "icongenie generate -m pwa -i public/favicon.png --skip-trim"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

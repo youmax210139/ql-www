@@ -6,7 +6,7 @@
     navigation
     infinite
     autoplay
-    class="md:h-2xl"
+    class="h-lg md:h-2xl"
   >
     <q-carousel-slide :name="1" img-src="carousel_a.jpg" />
     <q-carousel-slide :name="2" img-src="carousel_b.jpg" />
