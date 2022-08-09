@@ -1,6 +1,19 @@
 <template>
-  <q-page class="flex flex-center text-blue-800 text-lg"> QL99 </q-page>
+  <q-carousel
+    animated
+    v-model="slide"
+    arrows
+    navigation
+    infinite
+    autoplay
+    class="md:h-2xl"
+  >
+    <q-carousel-slide :name="1" img-src="carousel_a.jpg" />
+    <q-carousel-slide :name="2" img-src="carousel_b.jpg" />
+  </q-carousel>
 </template>
 
 <script setup>
+import { ref } from "vue";
+const slide = ref(1);
 </script>

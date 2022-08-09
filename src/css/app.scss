@@ -1,1 +1,6 @@
 // app global css in SCSS form
+@media (min-width: 768px) {
+  aside.q-drawer {
+    display: none;
+  }
+}
