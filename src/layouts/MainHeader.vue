@@ -16,24 +16,30 @@
         </a>
       </q-toolbar-title>
 
-      <q-button-group class="hidden md:flex mr-auto">
+      <q-btn-group flat class="hidden md:flex mr-auto">
         <q-btn
           v-for="(item, k) in linksList"
           :key="k"
           flat
           class="text-md font-medium"
           :label="item.title"
-          :to="item.link"
+          :to="{ name: item.link }"
         />
-      </q-button-group>
-      <q-button-group class="ml-auto">
+      </q-btn-group>
+      <q-btn-group flat class="ml-auto">
         <q-btn flat dense icon="person" to="#" class="text-sm" />
         /
         <q-btn flat round dense icon="shopping_cart" class="text-sm" />
         /
         <q-btn flat round dense icon="search" class="text-sm" />
         /
-        <q-btn-dropdown flat dense icon="svguse:icons/lang.svg#en_us">
+        <q-btn-dropdown flat dense>
+          <template v-slot:label>
+            <q-avatar
+              icon="svguse:icons/lang.svg#en_us"
+              class="h-5 w-5 rounded-full"
+            />
+          </template>
           <q-list>
             <q-item
               v-for="item in langList"
@@ -45,7 +51,7 @@
               <q-item-section side>
                 <q-avatar
                   :icon="`svguse:icons/lang.svg#${item.icon}`"
-                  class="h-4 w-4 rounded-full"
+                  class="h-5 w-5 rounded-full"
                 />
               </q-item-section>
               <q-item-section no-wrap>
@@ -54,7 +60,7 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
-      </q-button-group>
+      </q-btn-group>
     </q-toolbar>
   </q-header>
 
@@ -77,27 +83,22 @@ const linksList = [
   {
     title: "Best",
     icon: "school",
-    link: "#",
-  },
-  {
-    title: "Photobook",
-    icon: "code",
-    link: "#",
+    link: "bests.index",
   },
   {
     title: "Express",
     icon: "chat",
-    link: "#",
+    link: "express.index",
   },
   {
     title: "Model",
     icon: "record_voice_over",
-    link: "#",
+    link: "models.index",
   },
   {
     title: "Q&A",
     icon: "record_voice_over",
-    link: "#",
+    link: "qanda.index",
   },
 ];
 
@@ -120,6 +121,10 @@ function toggleLeftDrawer() {
 </script>
 
 <style scoped lang="scss">
+.q-avatar.h-5.w-5 :deep(.q-icon) {
+  width: 100%;
+  height: 100%;
+}
 @media (min-width: 768px) {
   .md\:flex {
     display: flex !important;
