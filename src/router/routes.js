@@ -51,7 +51,9 @@ const routes = [
       addRoute("/", "Home", "homes.index"),
       addRoute("/bests", "Best", "bests.index"),
       addRoute("/express", "Express", "express.index"),
-      addRoute("/qanda", "Qanda", "qanda.index"),
+      addRoute("/qa", "QA", "qa.index"),
+      addRoute("/tos", "TOS", "tos.index"),
+      addRoute("/pdpa", "PDPA", "pdpa.index"),
     ],
   },
 
@@ -59,7 +61,7 @@ const routes = [
   // but you can also remove it
   {
     path: "/:catchAll(.*)*",
-    component: () => import("pages/ErrorNotFound.vue"),
+    component: () => import("src/pages/404.vue"),
   },
 ];
 

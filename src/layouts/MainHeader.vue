@@ -1,5 +1,7 @@
 <template>
-  <q-header class="bg-yellow-400 text-black py-3 md:p-4">
+  <q-header
+    class="bg-yellow-400 text-black py-3 md:p-4 border-b-1 border-gray-300"
+  >
     <q-toolbar class="md:px-0">
       <q-btn
         class="md:hidden"
@@ -10,30 +12,40 @@
         aria-label="Menu"
         @click="toggleLeftDrawer"
       />
-      <q-toolbar-title shrink>
-        <a href="/">
-          <img src="logo.png" class="w-14 md:w-20" />
-        </a>
+      <q-toolbar-title
+        shrink
+        class="p-0 absolute-center md:(static transform-none)"
+      >
+        <q-item clickable :to="{ name: 'homes.index' }" class="logo">
+          <img src="logo.png" class="w-22 md:w-24" />
+        </q-item>
       </q-toolbar-title>
 
-      <q-btn-group flat class="hidden md:flex mr-auto">
-        <q-btn
+      <q-list
+        flat
+        class="hidden mr-auto text-uppercase text-md font-medium md:flex"
+      >
+        <q-item
           v-for="(item, k) in linksList"
           :key="k"
           flat
-          class="text-md font-medium"
-          :label="item.title"
+          dense
+          clickable
+          class="items-center px-6"
           :to="{ name: item.link }"
-        />
-      </q-btn-group>
-      <q-btn-group flat class="ml-auto">
+        >
+          {{ item.title }}
+        </q-item>
+      </q-list>
+
+      <q-btn-group flat class="ml-auto items-center gap-x-1">
         <q-btn flat dense icon="person" to="#" class="text-sm" />
-        /
+        <span>/</span>
         <q-btn flat round dense icon="shopping_cart" class="text-sm" />
-        /
+        <span>/</span>
         <q-btn flat round dense icon="search" class="text-sm" />
-        /
-        <q-btn-dropdown flat dense>
+        <span class="hidden md:flex">/</span>
+        <q-btn-dropdown flat dense class="hidden md:flex">
           <template v-slot:label>
             <q-avatar
               icon="svguse:icons/lang.svg#en_us"
@@ -47,6 +59,7 @@
               clickable
               v-close-popup
               tabindex="0"
+              class="hover:bg-yellow-400"
             >
               <q-item-section side>
                 <q-avatar
@@ -64,22 +77,32 @@
     </q-toolbar>
   </q-header>
 
-  <q-drawer class="md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
+  <q-drawer
+    class="text-uppercase md:hidden"
+    v-model="leftDrawerOpen"
+    show-if-above
+    bordered
+  >
     <q-list>
-      <EssentialLink
-        v-for="link in essentialLinks"
-        :key="link.title"
-        v-bind="link"
-      />
+      <q-item
+        clickable
+        :to="{ name: item.link }"
+        v-for="item in linksList"
+        :key="item.title"
+        class="border-b-1 border-gray-300"
+      >
+        <q-item-section>
+          <q-item-label>{{ item.title }}</q-item-label>
+        </q-item-section>
+      </q-item>
     </q-list>
   </q-drawer>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import EssentialLink from "components/EssentialLink.vue";
 
-const linksList = [
+const linksList = ref([
   {
     title: "Best",
     icon: "school",
@@ -100,9 +123,7 @@ const linksList = [
     icon: "record_voice_over",
     link: "qanda.index",
   },
-];
-
-const essentialLinks = ref(linksList);
+]);
 const leftDrawerOpen = ref(false);
 const langList = ref([
   {
@@ -124,6 +145,9 @@ function toggleLeftDrawer() {
 .q-avatar.h-5.w-5 :deep(.q-icon) {
   width: 100%;
   height: 100%;
+}
+.logo {
+  border: none;
 }
 @media (min-width: 768px) {
   .md\:flex {

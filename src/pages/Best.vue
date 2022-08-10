@@ -1,11 +1,11 @@
 <template>
-  <div class="container justify-center mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-12">
+  <q-page class="container justify-center mx-auto my-4 md:my-8">
+    <div class="grid grid-cols-1 gap-x-2 gap-y-12 md:grid-cols-2">
       <div v-for="(item, k) in bests" :key="k" class="hover:bg-white">
         <q-img :src="item.link" />
       </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script setup>

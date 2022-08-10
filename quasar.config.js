@@ -66,8 +66,8 @@ module.exports = configure(function (/* ctx */) {
       // env: {},
       // rawDefine: {}
       // ignorePublicFolder: true,
-      // minify: false,
-      // polyfillModulePreload: true,
+      minify: true,
+      polyfillModulePreload: true,
       // distDir
 
       // extendViteConf (viteConf) {},
