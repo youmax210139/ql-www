@@ -48,6 +48,7 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
+      addRoute("/login", "Login", "login.index"),
       addRoute("/", "Home", "homes.index"),
       addRoute("/bests", "Best", "bests.index"),
       addRoute("/qa", "QA", "qa.index"),

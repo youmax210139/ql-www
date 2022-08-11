@@ -1,6 +1,5 @@
 <template>
-  <q-footer
-    class="
+  <q-footer class="
       bg-yellow-400
       text-gray-800 text-center
       p-2
@@ -8,8 +7,7 @@
       gap-y-4
       md:px-4
       text-xs
-    "
-  >
+    ">
     <h3 class="text-lg font-bold">QL99</h3>
     <p>
       本站提供的所有作品
@@ -41,12 +39,8 @@
       <p><strong>公司</strong> 116000-01-020 QL Co.,Ltd</p>
     </section>
     <q-list dense class="flex flex-center">
-      <q-item clickable dense :to="{ name: 'tos.index' }" class="items-center"
-        >使用條款</q-item
-      >
-      <q-item clickable dense :to="{ name: 'pdpa.index' }" class="items-center"
-        >個人資料處理方針</q-item
-      >
+      <q-item clickable dense :to="{ name: 'tos.index' }" class="items-center">使用條款</q-item>
+      <q-item clickable dense :to="{ name: 'pdpa.index' }" class="items-center">個人資料處理方針</q-item>
     </q-list>
     <p>Copyright ⓒ 2022 QL99 All rights reserved.</p>
   </q-footer>

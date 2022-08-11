@@ -1,7 +1,6 @@
 <template>
   <div class="group relative">
-    <div
-      class="
+    <div class="
         w-full
         min-h-80
         bg-gray-200
@@ -10,13 +9,9 @@
         overflow-hidden
         group-hover:opacity-75
         md:(aspect-none)
-      "
-    >
-      <img
-        :src="link"
-        alt="Front of men&#039;s Basic Tee in black."
-        class="w-full object-center object-cover md:(h-full)"
-      />
+      ">
+      <img :src="link" alt="Front of men&#039;s Basic Tee in black."
+        class="w-full object-center object-cover md:(h-full)" />
     </div>
     <div class="text-center text-sm">
       <a href="#">

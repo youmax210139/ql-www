@@ -1,45 +1,24 @@
 <template>
-  <q-header
-    class="bg-yellow-400 text-black py-3 md:p-4 border-b-1 border-gray-300"
-  >
+  <q-header class="bg-yellow-400 text-black px-4 py-2 border-b-1 border-gray-300">
     <q-toolbar class="md:px-0">
-      <q-btn
-        class="md:hidden"
-        flat
-        dense
-        round
-        icon="menu"
-        aria-label="Menu"
-        @click="toggleLeftDrawer"
-      />
-      <q-toolbar-title
-        shrink
-        class="p-0 absolute-center md:(static transform-none)"
-      >
+      <q-btn class="md:hidden" flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+      <q-toolbar-title shrink class="p-0 absolute-center md:(static transform-none)">
         <q-item clickable :to="{ name: 'homes.index' }" class="logo">
           <img src="logo.png" class="w-22 md:w-24" />
         </q-item>
       </q-toolbar-title>
 
-      <q-list
-        flat
-        class="hidden mr-auto text-uppercase text-md font-medium md:flex"
-      >
-        <q-item
-          v-for="(item, k) in linksList"
-          :key="k"
-          flat
-          dense
-          clickable
-          class="items-center px-6"
-          :to="{ name: item.link }"
-        >
+      <q-list flat class="hidden mr-auto text-uppercase text-md font-medium md:flex">
+        <q-item v-for="(item, k) in linksList" :key="k" flat dense clickable class="items-center px-6"
+          :to="{ name: item.link }">
           {{ item.title }}
         </q-item>
       </q-list>
 
       <q-btn-group flat class="ml-auto items-center gap-x-1">
-        <q-btn flat dense icon="person" to="#" class="text-sm" />
+        <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm" />
+        <q-btn flat dense label="logout" class="text-sm" />
+        <q-btn flat dense icon="person" :to="{ name: 'accounts.index' }" class="text-sm" />
         <span>/</span>
         <q-btn flat round dense icon="shopping_cart" class="text-sm" />
         <span>/</span>
@@ -47,25 +26,13 @@
         <span class="hidden md:flex">/</span>
         <q-btn-dropdown flat dense class="hidden md:flex">
           <template v-slot:label>
-            <q-avatar
-              icon="svguse:icons/lang.svg#en_us"
-              class="h-5 w-5 rounded-full"
-            />
+            <q-avatar icon="svguse:icons/lang.svg#en_us" class="h-5 w-5 rounded-full" />
           </template>
           <q-list>
-            <q-item
-              v-for="item in langList"
-              :key="item.icon"
-              clickable
-              v-close-popup
-              tabindex="0"
-              class="hover:bg-yellow-400"
-            >
+            <q-item v-for="item in langList" :key="item.icon" clickable v-close-popup tabindex="0"
+              class="hover:bg-yellow-400">
               <q-item-section side>
-                <q-avatar
-                  :icon="`svguse:icons/lang.svg#${item.icon}`"
-                  class="h-5 w-5 rounded-full"
-                />
+                <q-avatar :icon="`svguse:icons/lang.svg#${item.icon}`" class="h-5 w-5 rounded-full" />
               </q-item-section>
               <q-item-section no-wrap>
                 <q-item-label>{{ item.title }}</q-item-label>
@@ -77,20 +44,10 @@
     </q-toolbar>
   </q-header>
 
-  <q-drawer
-    class="text-uppercase md:hidden"
-    v-model="leftDrawerOpen"
-    show-if-above
-    bordered
-  >
+  <q-drawer class="text-uppercase md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
     <q-list>
-      <q-item
-        clickable
-        :to="{ name: item.link }"
-        v-for="item in linksList"
-        :key="item.title"
-        class="border-b-1 border-gray-300"
-      >
+      <q-item clickable :to="{ name: item.link }" v-for="item in linksList" :key="item.title"
+        class="border-b-1 border-gray-300">
         <q-item-section>
           <q-item-label>{{ item.title }}</q-item-label>
         </q-item-section>
@@ -141,9 +98,11 @@ function toggleLeftDrawer() {
   width: 100%;
   height: 100%;
 }
+
 .logo {
   border: none;
 }
+
 @media (min-width: 768px) {
   .md\:flex {
     display: flex !important;
