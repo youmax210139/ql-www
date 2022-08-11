@@ -50,7 +50,6 @@ const routes = [
     children: [
       addRoute("/", "Home", "homes.index"),
       addRoute("/bests", "Best", "bests.index"),
-      addRoute("/express", "Express", "express.index"),
       addRoute("/qa", "QA", "qa.index"),
       addRoute("/tos", "TOS", "tos.index"),
       addRoute("/pdpa", "PDPA", "pdpa.index"),

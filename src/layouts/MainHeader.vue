@@ -109,11 +109,6 @@ const linksList = ref([
     link: "bests.index",
   },
   {
-    title: "Express",
-    icon: "chat",
-    link: "express.index",
-  },
-  {
     title: "Model",
     icon: "record_voice_over",
     link: "models.index",
