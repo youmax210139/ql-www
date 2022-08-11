@@ -1,6 +1,6 @@
 <template>
   <q-header class="bg-yellow-400 text-black px-4 py-2 border-b-1 border-gray-300">
-    <q-toolbar class="md:px-0">
+    <q-toolbar class="px-0">
       <q-btn class="md:hidden" flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
       <q-toolbar-title shrink class="p-0 absolute-center md:(static transform-none)">
         <q-item clickable :to="{ name: 'homes.index' }" class="logo">
@@ -15,11 +15,17 @@
         </q-item>
       </q-list>
 
-      <q-btn-group flat class="ml-auto items-center gap-x-1">
-        <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm" />
-        <q-btn flat dense label="logout" class="text-sm" />
-        <q-btn flat dense icon="person" :to="{ name: 'accounts.index' }" class="text-sm" />
-        <span>/</span>
+      <q-btn-group flat class="ml-auto items-center justify-center gap-x-1">
+        <div v-if="!user" class="flex gap-x-1 items-center justify-center">
+          <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm hidden md:flex" />
+          <span class="hidden md:flex">/</span>
+        </div>
+        <div v-else class="flex gap-x-1 items-center justify-center">
+          <q-btn flat dense label="logout" class="text-sm hidden md:flex" @click="logout()" />
+          <span class="hidden md:flex">/</span>
+          <q-btn flat dense icon="person" :to="{ name: 'accounts.index' }" class="text-sm" />
+          <span>/</span>
+        </div>
         <q-btn flat round dense icon="shopping_cart" class="text-sm" />
         <span>/</span>
         <q-btn flat round dense icon="search" class="text-sm" />
@@ -46,6 +52,12 @@
 
   <q-drawer class="text-uppercase md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
     <q-list>
+      <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white" v-ripple>
+        <q-item-section>Login</q-item-section>
+      </q-item>
+      <q-item v-else clickable class="bg-black text-white" @click="logout" v-ripple>
+        <q-item-section>Logout</q-item-section>
+      </q-item>
       <q-item clickable :to="{ name: item.link }" v-for="item in linksList" :key="item.title"
         class="border-b-1 border-gray-300">
         <q-item-section>
@@ -57,7 +69,11 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useAuthStore } from 'stores/auth';
+
+const store = useAuthStore();
+const user = computed(() => store.user);
 
 const linksList = ref([
   {
@@ -91,6 +107,11 @@ const langList = ref([
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+function logout() {
+  store.logout();
+}
+
 </script>
 
 <style scoped lang="scss">

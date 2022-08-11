@@ -4,7 +4,7 @@
       <h3 class="font-bold text-lg mb-2 text-center">使用條款</h3>
       <p class="w-full mx-auto md:w-3/4">
         第1條目的<br />
-        這些使用條款的目的是在“QL99
+        這些使用條款的目的是在“{{ $env.APP_NAME }}
         ”（“網站”）上列出有關服務使用和運營條款和條件的任何和所有事項。<br />
         <br />
         第2條定義本文使用的主要術語具有以下含義。<br />
