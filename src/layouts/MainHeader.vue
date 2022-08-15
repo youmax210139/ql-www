@@ -16,13 +16,17 @@
       </q-list>
 
       <q-btn-group flat class="ml-auto items-center justify-center gap-x-1">
-        <div v-if="!user" class="flex gap-x-1 items-center justify-center">
-          <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm hidden md:flex" />
-          <span class="hidden md:flex">/</span>
+        <div v-if="!user" class="flex gap-x-1 items-center justify-center hidden md:flex">
+          <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm" />
+          <span>/</span>
+          <q-btn flat dense label="signup" :to="{ name: 'register.index' }" class="text-sm" />
+          <span>/</span>
         </div>
         <div v-else class="flex gap-x-1 items-center justify-center">
-          <q-btn flat dense label="logout" class="text-sm hidden md:flex" @click="logout()" />
-          <span class="hidden md:flex">/</span>
+          <div class="hidden md:flex">
+            <q-btn flat dense label="logout" class="text-sm" @click="logout()" />
+            <span>/</span>
+          </div>
           <q-btn flat dense icon="person" :to="{ name: 'accounts.index' }" class="text-sm" />
           <span>/</span>
         </div>
@@ -50,12 +54,12 @@
     </q-toolbar>
   </q-header>
 
-  <q-drawer class="text-uppercase md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
+  <q-drawer class="md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
     <q-list>
-      <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white" v-ripple>
+      <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white mt-auto" v-ripple>
         <q-item-section>Login</q-item-section>
       </q-item>
-      <q-item v-else clickable class="bg-black text-white" @click="logout" v-ripple>
+      <q-item v-else clickable class="bg-black text-white mt-auto" @click="logout" v-ripple>
         <q-item-section>Logout</q-item-section>
       </q-item>
       <q-item clickable :to="{ name: item.link }" v-for="item in linksList" :key="item.title"
@@ -64,6 +68,26 @@
           <q-item-label>{{ item.title }}</q-item-label>
         </q-item-section>
       </q-item>
+      <div class="fixed bottom-0 w-full">
+        <q-expansion-item group="languages">
+          <template v-slot:header>
+            <q-item-section side>
+              <q-avatar icon="svguse:icons/lang.svg#en_us" class="h-5 w-5 rounded-full" />
+            </q-item-section>
+            <q-item-section no-wrap>
+              <q-item-label>English (US)</q-item-label>
+            </q-item-section>
+          </template>
+          <q-item v-for="item in langList" :key="item.icon" clickable>
+            <q-item-section side>
+              <q-avatar :icon="`svguse:icons/lang.svg#${item.icon}`" class="h-5 w-5 rounded-full" />
+            </q-item-section>
+            <q-item-section no-wrap>
+              <q-item-label>{{ item.title }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-expansion-item>
+      </div>
     </q-list>
   </q-drawer>
 </template>

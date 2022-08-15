@@ -21,7 +21,7 @@
       <q-checkbox v-model="form.remember_me" label="Remember me" />
       <q-btn label="Signin" type="submit" class="w-full py-4 bg-white" />
       <div class="flex justify-between">
-        <q-btn flat label="註冊" class="py-4" />
+        <q-btn flat label="註冊" :to="{ name: 'register.agree' }" class="py-4" />
         <q-btn flat label="忘記密碼" class="py-4" />
       </div>
     </q-form>
