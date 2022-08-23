@@ -4,8 +4,8 @@
       Login
     </h4>
     <q-form method="post" @submit.prevent="login()" class="grid gap-y-4 p-4 max-w-md mx-auto" ref="form$">
-      <q-input outlined v-model="form.username" label="Username" bg-color="white" lazy-rules :rules="[
-        $rules.required('username is required'),
+      <q-input outlined v-model="form.email" label="Email" bg-color="white" lazy-rules :rules="[
+        $rules.required('email is required'),
         $rules.email('should be email format'),
       ]" />
       <q-input :type="isPwd ? 'password' : 'text'" outlined v-model="form.password" label="Password" bg-color="white"
@@ -18,7 +18,7 @@
           <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
         </template>
       </q-input>
-      <q-checkbox v-model="form.remember_me" label="Remember me" />
+      <q-checkbox v-model="form.remember" label="Remember me" />
       <q-btn label="Signin" type="submit" class="w-full py-4 bg-white" />
       <div class="flex justify-between">
         <q-btn flat label="註冊" :to="{ name: 'register.agree' }" class="py-4" />
@@ -30,20 +30,23 @@
 
 <script setup>
 import { ref } from "vue";
+import { useQuasar } from 'quasar'
 import { useAuthStore } from 'stores/auth';
 
+const $q = useQuasar()
 const store = useAuthStore();
 
 const form$ = ref(null);
 const form = ref({
-  username: "",
+  email: "",
   password: "",
-  remember_me: false,
+  remember: false,
+  device_name: $q.platform.is.platform
 });
 const isPwd = ref(true);
 
 function login() {
   form$.value.validate();
-  store.login();
+  store.login(form.value);
 }
 </script>

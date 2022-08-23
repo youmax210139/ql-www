@@ -59,7 +59,7 @@
       <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white mt-auto" v-ripple>
         <q-item-section>Login</q-item-section>
       </q-item>
-      <q-item v-else clickable class="bg-black text-white mt-auto" @click="logout" v-ripple>
+      <q-item v-else clickable class="bg-black text-white mt-auto" @click="logout()" v-ripple>
         <q-item-section>Logout</q-item-section>
       </q-item>
       <q-item clickable :to="{ name: item.link }" v-for="item in linksList" :key="item.title"

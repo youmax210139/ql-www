@@ -90,13 +90,24 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      // https: true
+      https: {
+        cacert: "../laradock/nginx/ssl/root/rootCA.pem",
+        key: "../laradock/nginx/ssl/localhost.key",
+        cert: "../laradock/nginx/ssl/localhost.crt",
+      },
       open: true, // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
-      config: {},
+      config: {
+        notify: {
+          position: "center",
+          timeout: 2500,
+          textColor: "white",
+          actions: [{ icon: "close", color: "white" }],
+        },
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -109,7 +120,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ["LocalStorage", "Loading"],
+      plugins: ["LocalStorage", "Loading", "Notify"],
     },
 
     // animations: 'all', // --- includes all animations

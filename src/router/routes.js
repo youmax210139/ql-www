@@ -34,11 +34,12 @@ function resource(path, option = {}) {
   });
 }
 
-function addRoute(path, filePath, name) {
+function addRoute(path, filePath, name, meta = {}) {
   return {
     path: path,
     name: name,
     component: pages[`../pages/${filePath}.vue`],
+    meta: meta,
   };
 }
 
@@ -52,6 +53,9 @@ const routes = [
       addRoute("/register_agree", "RegisterAgree", "register.agree"),
       addRoute("/register", "Register", "register.index"),
       addRoute("/", "Home", "homes.index"),
+      addRoute("/accounts", "Account", "accounts.index", {
+        requiresAuth: true,
+      }),
       addRoute("/bests", "Best", "bests.index"),
       addRoute("/qa", "QA", "qa.index"),
       addRoute("/tos", "TOS", "tos.index"),

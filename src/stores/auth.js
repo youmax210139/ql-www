@@ -1,25 +1,27 @@
+import { LocalStorage } from "quasar";
 import { defineStore } from "pinia";
 import { api } from "boot/axios";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: null,
+    user: LocalStorage.getItem("user"),
   }),
 
   getters: {},
 
   actions: {
     async login(data) {
-      const response = await api.post("/auth/login", {});
-      console.log(response);
-      this.user = {
-        name: "test",
-        email: "test@gmail.com",
-      };
-      console.log(11111);
+      await api.get("/sanctum/csrf-cookie");
+      const response = await api.post("/login", data);
+      if (response.code == 200) {
+        this.user = response.data;
+        LocalStorage.set("user", this.user);
+      }
     },
     async logout() {
-      this.user = null;
+      LocalStorage.remove("user");
+      this.$reset();
+      this.router.go(0);
     },
   },
 });
