@@ -1,6 +1,6 @@
 <template>
   <q-page class="container mx-auto">
-    <h4 class="text-center text-2xl mt-8 mb-4 text-gray-700 md:(mt-12)">
+    <h4 class="text-center text-2xl my-4 text-gray-700 md:(mt-8)">
       Terms & Policy
     </h4>
     <q-form class="grid gap-y-4 p-4 mx-auto" ref="form$">
@@ -10,7 +10,7 @@
           同意使用條款<span class=" text-red">（必填）</span>
         </slot>
       </q-checkbox>
-      <q-scroll-area class="h-40 bg-white m-2 p-4 text-xs rounded-sm">
+      <q-scroll-area class="h-40 bg-white m-2 p-4 rounded-sm">
         第1條目的 <br />
         這些使用條款的目的是在“LEEHEE EXPRESS”（“網站”）上列出有關服務使用和運營條款和條件的任何和所有事項。<br />
 
@@ -120,7 +120,7 @@
           同意收集和使用個人資料<span class=" text-red">（必填）</span>
         </slot>
       </q-checkbox>
-      <q-scroll-area class="h-40 bg-white m-2 p-4 text-xs rounded-sm">
+      <q-scroll-area class="h-40 bg-white m-2 p-4 rounded-sm">
         1.收集和使用個人信息的目的<br /><br />
         A.在提供服務和支付服務費用合同履行服務<br />
         提供內容，購買和支付購買，交付貨物或郵寄賬單，自我認證以進行金融交易和金融服務<br />

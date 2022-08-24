@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpr fff" class="bg-yellow-400">
     <main-header />
-    <q-page-container class="md:pl-0">
+    <q-page-container class="md:(pl-0)">
       <router-view />
     </q-page-container>
     <main-footer />

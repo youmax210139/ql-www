@@ -19,7 +19,7 @@
         <div v-if="!user" class="flex gap-x-1 items-center justify-center hidden md:flex">
           <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm" />
           <span>/</span>
-          <q-btn flat dense label="signup" :to="{ name: 'register.index' }" class="text-sm" />
+          <q-btn flat dense label="signup" :to="{ name: 'register.agree' }" class="text-sm" />
           <span>/</span>
         </div>
         <div v-else class="flex gap-x-1 items-center justify-center">

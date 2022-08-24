@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-carousel animated v-model="slide" arrows navigation infinite autoplay class="h-lg md:h-2xl bg-yellow-400">
+    <q-carousel animated v-model="slide" arrows navigation infinite autoplay class="h-lg md:h-screen bg-yellow-400">
       <q-carousel-slide v-for="(item, k) in slides" :key="k" :name="item.name" :img-src="item.link"
         class="bg-blend-darken bg-gray-800 bg-opacity-20" />
     </q-carousel>
