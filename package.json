@@ -9,14 +9,14 @@
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
-    "icons": "icongenie generate -m pwa -i public/favicon.png --skip-trim"
+    "icon": "icongenie generate -p ./icongenie-profile.json"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.15.1",
     "axios": "^0.21.1",
     "lodash": "^4.17.21",
     "pinia": "^2.0.11",
-    "quasar": "^2.6.0",
+    "quasar": "^2.7.7",
     "vite-plugin-windicss": "^1.8.7",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
-    "@quasar/app-vite": "^1.0.0",
+    "@quasar/app-vite": "^1.0.6",
     "autoprefixer": "^10.4.2",
     "dotenv": "^16.0.1",
     "eslint": "^8.10.0",

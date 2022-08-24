@@ -1,0 +1,34 @@
+{
+    "params": {
+        "themeColor": "FBBE24",
+        "include": [
+            "spa",
+            "pwa"
+        ],
+        "skipTrim": false,
+        "icon": "favicon.png",
+        "padding": [
+            5,
+            5
+        ]
+    },
+    "assets": [
+        {
+            "generator": "svg",
+            "name": "safari-pinned-tab.svg",
+            "folder": "public/icons"
+        },
+        {
+            "generator": "splashscreen",
+            "name": "apple-launch-{size}.png",
+            "folder": "public/icons",
+            "sizes": [
+                [
+                    1668,
+                    2388
+                ]
+            ],
+            "tag": "<link rel=\"apple-touch-startup-image\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" href=\"icons/{name}\">"
+        }
+    ]
+}
