@@ -1,6 +1,6 @@
 import { LocalStorage } from "quasar";
 import { defineStore } from "pinia";
-import { api } from "boot/axios";
+import { guest } from "boot/axios";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -11,8 +11,7 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
     async login(data) {
-      await api.get("/sanctum/csrf-cookie");
-      const response = await api.post("/login", data);
+      const response = await guest.post("/login", data);
       if (response.code == 200) {
         this.user = response.data;
         LocalStorage.set("user", this.user);
@@ -25,8 +24,7 @@ export const useAuthStore = defineStore("auth", {
       this.router.go(0);
     },
     async register(data) {
-      await api.get("/sanctum/csrf-cookie");
-      const response = await api.post("/register", data);
+      const response = await guest.post("/register", data);
       if (response.code == 200) {
         this.router.push({ name: "login.index" });
       }

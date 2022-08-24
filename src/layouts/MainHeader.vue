@@ -8,23 +8,37 @@
         </q-item>
       </q-toolbar-title>
 
-      <q-list flat class="hidden mr-auto text-uppercase text-md font-medium md:flex">
-        <q-item v-for="(item, k) in linksList" :key="k" flat dense clickable class="items-center px-6"
-          :to="{ name: item.link }">
-          {{ item.title }}
-        </q-item>
+      <q-list flat class="hidden mr-auto text-capitalize text-md font-medium md:flex">
+        <template v-for="(item, k) in linksList" :key="k">
+          <q-item v-if="!item.children" flat dense clickable class="items-center px-6" :to="{ name: item.link }">
+            {{ item.title }}
+          </q-item>
+          <q-menu-hover v-else>
+            <template #default="{ activatorAttr, menuAttr }">
+              <q-item flat dense clickable class="items-center px-6" v-bind="activatorAttr">
+                {{ item.title }}
+                <q-menu v-model="item.open" anchor="bottom left" self="top left" fit class="text-center"
+                  v-bind="menuAttr">
+                  <q-item v-for="item in categories" :key="item.id" clickable class="px-6">
+                    <q-item-section>{{ item.name }}</q-item-section>
+                  </q-item>
+                </q-menu>
+              </q-item>
+            </template>
+          </q-menu-hover>
+        </template>
       </q-list>
 
       <q-btn-group flat class="ml-auto items-center justify-center gap-x-1">
         <div v-if="!user" class="flex gap-x-1 items-center justify-center hidden md:flex">
-          <q-btn flat dense label="login" :to="{ name: 'login.index' }" class="text-sm" />
+          <q-btn flat dense no-caps label="login" :to="{ name: 'login.index' }" class="text-sm text-capitalize" />
           <span>/</span>
-          <q-btn flat dense label="signup" :to="{ name: 'register.agree' }" class="text-sm" />
+          <q-btn flat dense no-caps label="signup" :to="{ name: 'register.agree' }" class="text-sm text-capitalize" />
           <span>/</span>
         </div>
         <div v-else class="flex gap-x-1 items-center justify-center">
           <div class="hidden md:flex">
-            <q-btn flat dense label="logout" class="text-sm" @click="logout()" />
+            <q-btn flat dense no-caps label="logout" class="text-sm text-capitalize" @click="logout()" />
             <span>/</span>
           </div>
           <q-btn flat dense icon="person" :to="{ name: 'accounts.index' }" class="text-sm" />
@@ -56,18 +70,27 @@
 
   <q-drawer class="md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
     <q-list>
-      <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white mt-auto" v-ripple>
+      <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white mt-auto text-capitalize"
+        v-ripple>
         <q-item-section>Login</q-item-section>
       </q-item>
-      <q-item v-else clickable class="bg-black text-white mt-auto" @click="logout()" v-ripple>
+      <q-item v-else clickable class="bg-black text-white mt-auto text-capitalize" @click="logout()" v-ripple>
         <q-item-section>Logout</q-item-section>
       </q-item>
-      <q-item clickable :to="{ name: item.link }" v-for="item in linksList" :key="item.title"
-        class="border-b-1 border-gray-300">
-        <q-item-section>
-          <q-item-label>{{ item.title }}</q-item-label>
-        </q-item-section>
-      </q-item>
+      <template v-for="item in linksList" :key="item.title">
+        <q-item v-if="!item.children" clickable :to="{ name: item.link }" class="border-b-1 border-gray-300">
+          <q-item-section>
+            <q-item-label>{{ item.title }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-expansion-item v-else :group="item.id" :label="item.title">
+          <q-item v-for="item in item.children" :key="item.name" clickable>
+            <q-item-section no-wrap>
+              <q-item-label>{{ item.name }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-expansion-item>
+      </template>
       <div class="fixed bottom-0 w-full">
         <q-expansion-item group="languages">
           <template v-slot:header>
@@ -95,20 +118,27 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useAuthStore } from 'stores/auth';
+import { useCategoryStore } from 'stores/category';
+import QMenuHover from "components/QMenuHover.vue"
 
-const store = useAuthStore();
-const user = computed(() => store.user);
+const authStore = useAuthStore();
+const categoryStore = useCategoryStore();
+const user = computed(() => authStore.user);
+const categories = computed(() => categoryStore.categories);
+categoryStore.index();
 
 const linksList = ref([
   {
-    title: "Best",
+    title: "BEST",
     icon: "school",
     link: "bests.index",
   },
   {
-    title: "Model",
+    title: "Category",
     icon: "record_voice_over",
-    link: "models.index",
+    children: categories,
+    open: false,
+    listOver: false
   },
   {
     title: "Q&A",
@@ -133,7 +163,7 @@ function toggleLeftDrawer() {
 }
 
 function logout() {
-  store.logout();
+  authStore.logout();
 }
 
 </script>

@@ -9,6 +9,7 @@ import { Loading, Notify, LocalStorage } from "quasar";
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({ baseURL: process.env.API });
+const guest = axios.create({ baseURL: process.env.API });
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -18,7 +19,10 @@ export default boot(({ app }) => {
   //       so you won't necessarily have to import axios in each vue file
 
   app.config.globalProperties.$api = api;
+  app.config.globalProperties.$guestApi = guest;
+
   api.defaults.withCredentials = true;
+  guest.defaults.withCredentials = true;
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
   // Add a request interceptor
@@ -29,9 +33,8 @@ export default boot(({ app }) => {
       if (user) {
         config.headers["Authorization"] = "Bearer " + user.token;
       }
-      if (config.url != "/sanctum/csrf-cookie") {
-        Loading.show();
-      }
+      Loading.show();
+
       return config;
     },
     function (error) {
@@ -50,7 +53,44 @@ export default boot(({ app }) => {
       response = response.data;
       if (response.code && response.code != 200) {
         Notify.create({
-          message: response.message,
+          message: response.msg,
+          type: "negative",
+        });
+      }
+      return response;
+    },
+    function (error) {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
+      Loading.hide();
+      return error;
+    }
+  );
+
+  guest.interceptors.request.use(
+    async function (config) {
+      // Do something before request is sent
+      await axios.get(process.env.API + "/sanctum/csrf-cookie");
+      Loading.show();
+      return config;
+    },
+    function (error) {
+      // Do something with request error
+      Loading.hide();
+      return Promise.reject(error);
+    }
+  );
+
+  // Add a response interceptor
+  guest.interceptors.response.use(
+    function (response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      Loading.hide();
+      response = response.data;
+      if (response.code && response.code != 200) {
+        Notify.create({
+          message: response.msg,
           type: "negative",
         });
       }
@@ -65,4 +105,4 @@ export default boot(({ app }) => {
   );
 });
 
-export { api };
+export { api, guest };
