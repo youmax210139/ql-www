@@ -24,5 +24,12 @@ export const useAuthStore = defineStore("auth", {
       this.$reset();
       this.router.go(0);
     },
+    async register(data) {
+      await api.get("/sanctum/csrf-cookie");
+      const response = await api.post("/register", data);
+      if (response.code == 200) {
+        this.router.push({ name: "login.index" });
+      }
+    },
   },
 });
