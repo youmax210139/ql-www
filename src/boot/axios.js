@@ -29,7 +29,9 @@ export default boot(({ app }) => {
       if (user) {
         config.headers["Authorization"] = "Bearer " + user.token;
       }
-      Loading.show();
+      if (config.url != "/sanctum/csrf-cookie") {
+        Loading.show();
+      }
       return config;
     },
     function (error) {

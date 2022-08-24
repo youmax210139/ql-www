@@ -16,6 +16,7 @@ export const useAuthStore = defineStore("auth", {
       if (response.code == 200) {
         this.user = response.data;
         LocalStorage.set("user", this.user);
+        this.router.push({ name: "accounts.index" });
       }
     },
     async logout() {
