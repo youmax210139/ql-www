@@ -1,4 +1,5 @@
 <template>
+  <!-- PC -->
   <q-header class="bg-yellow-400 text-black px-4 py-2 border-b-1 border-gray-300">
     <q-toolbar class="px-0">
       <q-btn class="md:hidden" flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
@@ -8,9 +9,9 @@
         </q-item>
       </q-toolbar-title>
 
-      <q-list flat class="hidden mr-auto text-capitalize text-md font-medium md:flex">
+      <q-list flat class="hidden mr-auto text-capitalize text-md font-medium md:(flex)">
         <template v-for="(item, k) in linksList" :key="k">
-          <q-item v-if="!item.children" flat dense clickable class="items-center px-6" :to="{ name: item.link }">
+          <q-item v-if="!item.children" flat dense clickable class="items-center px-6" :to="item.link">
             {{ item.title }}
           </q-item>
           <q-menu-hover v-else>
@@ -19,8 +20,9 @@
                 {{ item.title }}
                 <q-menu v-model="item.open" anchor="bottom left" self="top left" fit class="text-center"
                   v-bind="menuAttr">
-                  <q-item v-for="item in categories" :key="item.id" clickable class="px-6">
-                    <q-item-section>{{ item.name }}</q-item-section>
+                  <q-item v-for="child in item.children" :key="child.id" clickable class="px-6 hover:bg-yellow-400"
+                    :to="child.link">
+                    <q-item-section>{{ child.name }}</q-item-section>
                   </q-item>
                 </q-menu>
               </q-item>
@@ -37,8 +39,8 @@
           <span>/</span>
         </div>
         <div v-else class="flex gap-x-1 items-center justify-center">
-          <div class="hidden md:flex">
-            <q-btn flat dense no-caps label="logout" class="text-sm text-capitalize" @click="logout()" />
+          <div class="hidden md:(flex items-center justify-center)">
+            <q-btn flat dense no-caps label="logout" class="text-sm text-capitalize mr-1" @click="logout()" />
             <span>/</span>
           </div>
           <q-btn flat dense icon="person" :to="{ name: 'accounts.index' }" class="text-sm" />
@@ -67,7 +69,7 @@
       </q-btn-group>
     </q-toolbar>
   </q-header>
-
+  <!-- mobile -->
   <q-drawer class="md:hidden" v-model="leftDrawerOpen" show-if-above bordered>
     <q-list>
       <q-item v-if="!user" clickable :to="{ name: 'login.index' }" class="bg-black text-white mt-auto text-capitalize"
@@ -78,15 +80,15 @@
         <q-item-section>Logout</q-item-section>
       </q-item>
       <template v-for="item in linksList" :key="item.title">
-        <q-item v-if="!item.children" clickable :to="{ name: item.link }" class="border-b-1 border-gray-300">
+        <q-item v-if="!item.children" clickable :to="item.link" class="border-b-1 border-gray-300">
           <q-item-section>
             <q-item-label>{{ item.title }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-expansion-item v-else :group="item.id" :label="item.title">
-          <q-item v-for="item in item.children" :key="item.name" clickable>
+        <q-expansion-item v-else :group="item.title" :label="item.title">
+          <q-item v-for="child in item.children" :key="child.id" clickable :to="child.link">
             <q-item-section no-wrap>
-              <q-item-label>{{ item.name }}</q-item-label>
+              <q-item-label>{{ child.name }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-expansion-item>
@@ -116,7 +118,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from 'stores/auth';
 import { useCategoryStore } from 'stores/category';
 import QMenuHover from "components/QMenuHover.vue"
@@ -127,25 +129,26 @@ const user = computed(() => authStore.user);
 const categories = computed(() => categoryStore.categories);
 categoryStore.index();
 
-const linksList = ref([
+const linksList = computed(() => [
   {
     title: "BEST",
     icon: "school",
-    link: "bests.index",
+    link: { name: "bests.index" },
   },
   {
     title: "Category",
     icon: "record_voice_over",
-    children: categories,
+    children: categories.value.map(v => {
+      return {
+        ...v,
+        link: { name: "categories.index", params: { category: v.name } }
+      }
+    }),
     open: false,
     listOver: false
   },
-  {
-    title: "Q&A",
-    icon: "record_voice_over",
-    link: "qanda.index",
-  },
 ]);
+
 const leftDrawerOpen = ref(false);
 const langList = ref([
   {

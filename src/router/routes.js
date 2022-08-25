@@ -57,7 +57,7 @@ const routes = [
         requiresAuth: true,
       }),
       addRoute("/bests", "Best", "bests.index"),
-      addRoute("/qa", "QA", "qa.index"),
+      addRoute("/categories/:category", "Category", "categories.index"),
       addRoute("/tos", "TOS", "tos.index"),
       addRoute("/pdpa", "PDPA", "pdpa.index"),
     ],
