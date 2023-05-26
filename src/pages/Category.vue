@@ -12,26 +12,44 @@ import shopItem from "components/ShopItem.vue";
 
 const bests = ref([
   {
-    title: "test1",
-    link: "best1.jpeg",
+    title: "JPSC-001",
+    link: "best01.jpeg",
     currency: "TWD",
     price: "500",
   },
   {
-    title: "test2",
-    link: "best2.jpeg",
+    title: "JPSC-002",
+    link: "best02.jpeg",
     currency: "TWD",
     price: "500",
   },
   {
-    title: "test3",
-    link: "best3.jpeg",
+    title: "JPSC-003",
+    link: "best03.jpeg",
     currency: "TWD",
     price: "500",
   },
   {
-    title: "test4",
-    link: "best1.jpeg",
+    title: "KAPP-001",
+    link: "best05.jpeg",
+    currency: "TWD",
+    price: "500",
+  },
+  {
+    title: "KAPP-002",
+    link: "best06.jpeg",
+    currency: "TWD",
+    price: "500",
+  },
+  {
+    title: "KAPP-003",
+    link: "best07.jpeg",
+    currency: "TWD",
+    price: "500",
+  },
+  {
+    title: "KAPP-004",
+    link: "best08.jpeg",
     currency: "TWD",
     price: "500",
   },

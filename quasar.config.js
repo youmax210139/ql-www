@@ -28,7 +28,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
-    boot: ["i18n", "axios", "windi", "dotenv"],
+    boot: ["i18n", "axios", "dotenv", "unocss"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ["app.scss"],
@@ -75,7 +75,7 @@ module.exports = configure(function (/* ctx */) {
 
       vitePlugins: [
         [
-          "vite-plugin-windicss",
+          "unocss/vite",
           "@intlify/vite-plugin-vue-i18n",
           {
             // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
@@ -91,7 +91,7 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       https: {
-        cacert: "../laradock/nginx/ssl/root/rootCA.pem",
+        ca: "../laradock/nginx/ssl/root/rootCA.pem",
         key: "../laradock/nginx/ssl/localhost.key",
         cert: "../laradock/nginx/ssl/localhost.crt",
       },

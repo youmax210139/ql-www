@@ -1,17 +1,13 @@
 <template>
   <div class="group relative">
-    <div class="
-        w-full
-        min-h-80
-        bg-gray-200
-        aspect-w-1 aspect-h-1
-        rounded-md
-        overflow-hidden
-        group-hover:opacity-75
-        md:(aspect-none)
-      ">
-      <img :src="link" alt="Front of men&#039;s Basic Tee in black."
-        class="w-full object-center object-cover md:(h-full)" />
+    <div
+      class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 md:(aspect-none)"
+    >
+      <img
+        :src="link"
+        alt="Front of men&#039;s Basic Tee in black."
+        class="w-full object-center object-cover md:(h-full)"
+      />
     </div>
     <div class="text-center text-sm">
       <a href="#">
